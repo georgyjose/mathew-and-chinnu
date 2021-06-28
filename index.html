@@ -359,8 +359,17 @@
                 var m = Math.floor(i / 1e3),
                     s = Math.floor(m / 60),
                     l = Math.floor(s / 60);
-                Math.floor(l / 24);
-                l, s %= 60, m %= 60, t.innerHTML = l + " HOURS • " + s + " MIN • " + m + " SEC"
+                    d = Math.floor(l / 24);
+                l %= 24, s %= 60, m %= 60
+                if (d>0) {
+                    t.innerHTML = d + " DAYS • " + l + " HOURS • " + s + " MINS • " + m + " SEC"
+                } else if (l>0){
+                    t.innerHTML = l + " HOURS • " + s + " MINS • " + m + " SEC"
+                } else if (s>0){
+                    t.innerHTML = s + " MINS • " + m + " SEC"
+                } else if (m>0){
+                    t.innerHTML = m + " SEC"
+                }
             }
         }
         a.setDate(a.getDate()), e = setInterval(function() {
