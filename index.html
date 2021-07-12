@@ -332,47 +332,61 @@
         <section id="covid_disclaimer">
             <p> Since we are obliged to observe the COVID-19 protocol, we are unable to gather all our beloved ones for the function. </p>
             <p> Hence we humbly solicit your valuable prayers and blessings on the gracious occasion. </p>
+            <button class="btn btn-primary" onClick="location='https://goo.gl/maps/gAUmH2HeYnLYGSn86'">Navigate to Home 🏠</button>
+            <button class="btn btn-primary" onClick="location='https://goo.gl/maps/f3HgrqiTNgSTgsVy8'">Navigate to Church ⛪️</button>
         </section>
     </main>
-    <link rel="stylesheet" href="./static/animate.min.css">
-    <link href="./static/css2" rel="stylesheet">
-    <link href="./static/css2(1)" rel="stylesheet">
+    <link rel="stylesheet " href="./static/animate.min.css ">
+    <link href="./static/css2 " rel="stylesheet ">
+    <link href="./static/css2(1) " rel="stylesheet ">
     <script>
-        var e, t = document.querySelector("#live-timer"),
-            a = new Date("2021-08-23T10:30:00");
+        var e, t = document.querySelector("#live-timer "),
+            a = new Date("2021-08-23T10:30:00 ");
 
-        function get_datetime_string(count, string){
-            return count>1? count + " " + string + "S":count + " " + string
+        var SHOW_LIVE_BUTTON = false;
+
+        var LIVE_STREAM_LINK = "https://www.youtube.com/channel/UCjDxbDxl9iwQNPAcg8PfjLA "
+
+        var ENABLE_BUTTON_SECONDS = 4 * 60 * 60;
+
+        function get_datetime_string(count, string) {
+            if (count > 1) {
+                return count + " " + string + "S • "
+            } else if (count == 1) {
+                return count + " " + string + " • "
+            } else {
+                return " "
+            }
         }
 
         function n(a) {
-            var n = a,
-                o = new Date,
-                i = n.getTime() - o.getTime();
-            if (i <= 0) {
+            var wedding_datetime = a,
+                current_datetime = new Date,
+                total_seconds = wedding_datetime.getTime() - current_datetime.getTime();
+            if ((total_seconds <= ENABLE_BUTTON_SECONDS) || SHOW_LIVE_BUTTON) {
                 clearInterval(e);
-                var r = document.querySelector(".wedding_date");
-                r.style.marginBottom = "0px", r.style.maxHeight = "0px", setTimeout(function() {
-                    t.classList.add("animate__animated", "animate__zoomOut")
+                var r = document.querySelector(".wedding_date ");
+                r.style.marginBottom = "0px ", r.style.maxHeight = "0px ", setTimeout(function() {
+                    t.classList.add("animate__animated ", "animate__zoomOut ")
                 }, 350), setTimeout(function() {
-                    t.removeAttribute("disabled"), t.innerHTML = "WATCH LIVE", t.classList.remove("animate__zoomOut"), t.classList.add("active", "animate__zoomIn")
-                }, 600), t.addEventListener("click", function() {
-                    window.open("https://www.youtube.com/channel/UCjDxbDxl9iwQNPAcg8PfjLA")
+                    t.removeAttribute("disabled "), t.innerHTML = "WATCH LIVE ", t.classList.remove("animate__zoomOut "), t.classList.add("active ", "animate__zoomIn ")
+                }, 600), t.addEventListener("click ", function() {
+                    window.open(LIVE_STREAM_LINK)
                 })
             } else {
-                var m = Math.floor(i / 1e3),
-                    s = Math.floor(m / 60),
-                    l = Math.floor(s / 60);
-                    d = Math.floor(l / 24);
-                l %= 24, s %= 60, m %= 60
-                if (d>0) {
-                    t.innerHTML = get_datetime_string(d, "DAY") + " • " + get_datetime_string(l, "HOUR") + " • " + get_datetime_string(s, "MIN") + " • " + m + "SEC"
-                } else if (l>0){
-                    t.innerHTML = get_datetime_string(l, "HOUR") + " • " + get_datetime_string(s, "MIN") + " • " + m + "SEC"
-                } else if (s>0){
-                    t.innerHTML = get_datetime_string(s, "MIN") + " • " + m + "SEC"
-                } else if (m>0){
-                    t.innerHTML = m + "SEC"
+                var seconds = Math.floor(total_seconds / 1e3),
+                    minutes = Math.floor(seconds / 60),
+                    hours = Math.floor(minutes / 60);
+                days = Math.floor(hours / 24);
+                hours %= 24, minutes %= 60, seconds %= 60
+                if (days > 0) {
+                    t.innerHTML = get_datetime_string(days, "DAY ") + get_datetime_string(hours, "HOUR ") + get_datetime_string(minutes, "MIN ") + seconds + " SEC "
+                } else if (hours > 0) {
+                    t.innerHTML = get_datetime_string(hours, "HOUR ") + get_datetime_string(minutes, "MIN ") + seconds + " SEC "
+                } else if (minutes > 0) {
+                    t.innerHTML = get_datetime_string(minutes, "MIN ") + seconds + " SEC "
+                } else if (seconds > 0) {
+                    t.innerHTML = seconds + " SEC "
                 }
             }
         }
