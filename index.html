@@ -341,6 +341,10 @@
         var e, t = document.querySelector("#live-timer"),
             a = new Date("2021-08-23T10:30:00");
 
+        function get_datetime_string(count, string){
+            return count>1? count + " " + string + "S":count + " " + string
+        }
+
         function n(a) {
             var n = a,
                 o = new Date,
@@ -353,7 +357,7 @@
                 }, 350), setTimeout(function() {
                     t.removeAttribute("disabled"), t.innerHTML = "WATCH LIVE", t.classList.remove("animate__zoomOut"), t.classList.add("active", "animate__zoomIn")
                 }, 600), t.addEventListener("click", function() {
-                    window.open("https://youtu.be/w-fKydwqVy4")
+                    window.open("https://www.youtube.com/channel/UCjDxbDxl9iwQNPAcg8PfjLA")
                 })
             } else {
                 var m = Math.floor(i / 1e3),
@@ -362,13 +366,13 @@
                     d = Math.floor(l / 24);
                 l %= 24, s %= 60, m %= 60
                 if (d>0) {
-                    t.innerHTML = d + " DAYS • " + l + " HOURS • " + s + " MINS • " + m + " SEC"
+                    t.innerHTML = get_datetime_string(d, "DAY") + " • " + get_datetime_string(l, "HOUR") + " • " + get_datetime_string(s, "MIN") + " • " + m + "SEC"
                 } else if (l>0){
-                    t.innerHTML = l + " HOURS • " + s + " MINS • " + m + " SEC"
+                    t.innerHTML = get_datetime_string(l, "HOUR") + " • " + get_datetime_string(s, "MIN") + " • " + m + "SEC"
                 } else if (s>0){
-                    t.innerHTML = s + " MINS • " + m + " SEC"
+                    t.innerHTML = get_datetime_string(s, "MIN") + " • " + m + "SEC"
                 } else if (m>0){
-                    t.innerHTML = m + " SEC"
+                    t.innerHTML = m + "SEC"
                 }
             }
         }
