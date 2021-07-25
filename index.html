@@ -214,12 +214,14 @@
             background-color: var(--primary-dark)
         }
         
-        #text_content {
+        #text_content,
+        #video_player {
             text-align: center;
             color: var(--primary-dark)
         }
         
-        #text_content p {
+        #text_content,
+        #video_player p {
             font-style: normal;
             font-weight: 400;
             font-size: .875rem;
@@ -309,10 +311,13 @@
             }
             #text_content {
                 background: white;
-                height: 60vh;
                 display: grid;
                 grid-template-columns: 1fr;
                 place-content: center;
+            }
+            #video_player {
+                padding: 2%;
+                background-color: #fff;
             }
         }
     </style>
@@ -334,6 +339,10 @@
                     LIVE</button>
             </div>
         </section>
+        <section id="video_player">
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/5iQ8WsiMrbw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <p>Can't watch live? <a href="https://www.youtube.com/channel/UCjDxbDxl9iwQNPAcg8PfjLA" style="text-decoration:none">Click Here</a></p>
+        </section>
         <section id="text_content">
             <p> Since we are obliged to observe the COVID-19 protocol, we are unable to gather all our beloved ones for the function. </p>
             <p> Hence we humbly solicit your valuable prayers and blessings on the gracious occasion. </p>
@@ -350,8 +359,6 @@
             a = new Date("2021-08-23T11:00:00");
 
         var SHOW_LIVE_BUTTON = false;
-
-        var LIVE_STREAM_LINK = "https://www.youtube.com/channel/UCjDxbDxl9iwQNPAcg8PfjLA"
 
         var ENABLE_BUTTON_SECONDS = 4 * 60 * 60;
 
@@ -370,6 +377,7 @@
                 current_datetime = new Date,
                 total_seconds = wedding_datetime.getTime() - current_datetime.getTime();
             if ((total_seconds <= ENABLE_BUTTON_SECONDS) || SHOW_LIVE_BUTTON) {
+                document.getElementById("video_player").style.display = "block";
                 clearInterval(e);
                 var r = document.querySelector(".wedding_date");
                 r.style.marginBottom = "0px", r.style.maxHeight = "0px", setTimeout(function() {
@@ -377,9 +385,10 @@
                 }, 350), setTimeout(function() {
                     t.removeAttribute("disabled "), t.innerHTML = "WATCH LIVE", t.classList.remove("animate__zoomOut"), t.classList.add("active", "animate__zoomIn")
                 }, 600), t.addEventListener("click", function() {
-                    window.open(LIVE_STREAM_LINK)
+                    window.open("https://www.youtube.com/channel/UCjDxbDxl9iwQNPAcg8PfjLA")
                 })
             } else {
+                document.getElementById("video_player").style.display = "none";
                 var seconds = Math.floor(total_seconds / 1e3),
                     minutes = Math.floor(seconds / 60),
                     hours = Math.floor(minutes / 60);
@@ -396,6 +405,7 @@
                 }
             }
         }
+        document.getElementById("video_player").style.display = "none";
         a.setDate(a.getDate()), e = setInterval(function() {
             n(a)
         }, 1e3);
