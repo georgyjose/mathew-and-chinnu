@@ -315,6 +315,49 @@
                 grid-template-columns: 1fr;
                 place-content: center;
             }
+            .swipe{
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                float:right;
+                transform: translate(-50%, -50%);
+            }
+
+            .swipe span{
+                display: block;
+                width: 20px;
+                height: 20px;
+                border-bottom: 2px solid white;
+                border-right: 2px solid white;
+                transform: rotate(45deg);
+                margin: -10px;
+                animation: animate 2s infinite;
+            }
+
+            .swipe span:nth-child(2)
+            {
+                animation-delay: -0.1s;
+            }
+
+            .swipe span:nth-child(3)
+            {
+                animation-delay: -0.3s;
+            }
+
+            @keyframes animate{
+                
+                0%{
+                    opacity: 0;
+                    transform: rotate(45deg) translate(-20px, -20px);
+                }
+                50%{
+                    opacity: 1;
+                }
+                100%{
+                    opacity: 0;
+                    transform: rotate(45deg) translate(20px, 20px);
+                }
+            }
             #video_player {
                 padding: 2%;
                 background-color: #fff;
@@ -327,6 +370,11 @@
 <body>
     <main class="container">
         <div class="save_the_date_banner_image show-only-sm-down"></div>
+        <div class="swipe">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
         <section id="save_the_date_banner" class="hidden-sm-down"> <img src="./static/plant.22a49efe.png" class="plant_left" alt=""> <img src="./static/plant.22a49efe.png" class="plant_right" alt="">
             <div id="save_the_date_text"> SAVE THE DATE </div>
         </section>
